@@ -62,7 +62,7 @@ render(){
     for(let i in disabledInfo ){
         disabledInfo[i] = disabledInfo[i] <= 0
     }
-    console.log(disabledInfo);
+    console.log(this.state.price);
 
     return(
         <Auxi>
@@ -71,6 +71,7 @@ render(){
             added = {this.addIngredientsHandler} 
             removed = {this.removeIngredientsHandler}
             disabled={disabledInfo}
+            price= {this.state.price} 
             />
         </Auxi>
     );
