@@ -9,34 +9,34 @@
     padding: 10px 0;
 }
 
-.OrderButton {
-    background-color: #DAD735;
-    outline: none;
-    cursor: pointer;
-    border: 1px solid #966909;
-    color: #966909;
-    font-family: inherit;
-    font-size: 1.2em;
-    padding: 15px 30px;
-    box-shadow: 2px 2px 2px #966909;
-}
 
-.OrderButton:hover, .OrderButton:active {
-    background-color: #A0DB41;
-    border: 1px solid #966909;
-    color: #966909;
-}
+.order-button {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 6em;
+    height: 3em;
+    border: 2px solid rgba(224,175,92,1);
+    font: normal 16px/1 "Times New Roman", Times, serif;
+    color: black;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background: #f9ed63;
+  }
+  
+  .order-button:hover {
+    border: 2px solid rgba(181,128,45,1);
+    background: #ea9d59;
+  }
+  
+  .order-button:active {
+    border: 2px solid rgba(224,175,92,1);
+    background: #f9ed63;
+  }
 
-.OrderButton:disabled {
-    background-color: #C7C6C6;
-    cursor: not-allowed;
-    border: 1px solid #ccc;
-    color: #888888;
-}
-
-.OrderButton:not(:disabled) {
-    animation: enable 0.3s linear;
-}
+  .order-button:disabled{
+    display: none;
+  }
 
 @keyframes enable {
     0% {
