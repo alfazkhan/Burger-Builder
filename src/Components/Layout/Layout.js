@@ -1,23 +1,37 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Auxi from '../../hoc/Auxi';
-const layout = (props) => {
+import Toolbar from '../Navigation/Toolbar/Toolbar';
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
-    let style = {
-        backgroundColor : "salmon",
-        marginBottom : '30px',
-        height : '70px'
-    };
+class Layout extends Component{
 
-    return(
-        <Auxi>
-    <div style={style}>ToolBar, Sidebar, Backdrop</div>
-    <main>
-        {props.children}
-    </main>
-    </Auxi>
-    );
+    state={
+        backdropOpen:false
+    }
 
-    
-    };
+    backDropHandler = () =>{
+        this.setState({backdropOpen:false});
+    }
 
-export default layout
+    toggleState = () =>{
+        const toggle = !this.state.backdropOpen
+        this.setState({backdropOpen: toggle })
+    }
+
+    render(){
+        return(
+            <Auxi>
+                <div>
+                    <Toolbar action={this.toggleState}/>
+                    <SideDrawer open={this.state.backdropOpen} closed={this.backDropHandler}/>
+                </div>
+                <main>
+                    {this.props.children}
+                </main>
+            </Auxi>
+        );
+    }
+
+};
+
+export default Layout
