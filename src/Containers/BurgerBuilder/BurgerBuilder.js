@@ -4,6 +4,8 @@ import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
 import Modal from '../../Components/UI/Modal/Modal';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrdarSummary';
+import axios from '../../axios-order';
+import Loading from '../../Components/UI/Loading/Loading';
 
 const INGRIDIENT_PRICE = {
     meat: 3,
@@ -23,7 +25,8 @@ class BurgerBuilder extends Component{
         },
         price : 5,
         purchasable : false,
-        purchasing : false
+        purchasing : false,
+        processing : false
     }
 
     updatePurchasingHandler = ( ) =>
@@ -33,7 +36,7 @@ class BurgerBuilder extends Component{
 
     closeModal = ( ) =>
     {
-        this.setState({purchasing:false})
+        this.setState({purchasing:false,processing:false})
     }
 
     updatePurchaseState = ( ) =>
@@ -83,6 +86,25 @@ class BurgerBuilder extends Component{
         
     }
 
+    continuePurchase = () => {
+        const order = {
+            
+                ingredients : this.state.ingredients,
+                price : this.state.price,
+                user: {
+                    name:"Alfaaz",
+                    phone:"123456789"
+                },
+                delivery:"Fastest"
+        }
+        this.setState({processing:true});
+        axios.post('/orders.json',order)
+        .then(response=> this.closeModal())
+        .catch(error=> this.closeModal());
+
+        
+    }
+
 render(){
     
 
@@ -95,11 +117,17 @@ render(){
         disabledInfo[i] = disabledInfo[i] <= 0
     }
 
+    let modalElement = <OrderSummary ingredients={this.state.ingredients} close={this.closeModal} continue={this.continuePurchase} price={this.state.price} />;
+    
+    
     return(
+
+        
+
         <Auxi>
             {this.state.purchasing 
             ?<Modal show={this.state.purchasing} modalClosed={this.closeModal} >
-            <OrderSummary ingredients={this.state.ingredients} close={this.closeModal} price={this.state.price} />
+            {this.state.processing ? <Loading/> : modalElement}
             </Modal>
             : null
             }

@@ -22,7 +22,7 @@ const orderSummary = (props)=>{
             <p>Continue to Checkout?</p>
             <div className="row" >
                 <button className="btn btn-danger btn-sm btn-block" onClick={props.close}>CANCEL</button>
-                <button className="btn btn-success btn-sm btn-block" disabled={true} >CONTINUE</button>
+                <button className="btn btn-success btn-sm btn-block" onClick={props.continue} >CONTINUE</button>
             </div>
         
         </Auxi>

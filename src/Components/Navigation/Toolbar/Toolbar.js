@@ -1,16 +1,18 @@
 import React from 'react';
+
 import './Toolbar.css';
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import { whileStatement } from '@babel/types';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
-const toolbar = (props) =>
-(
-    <header className="Toolbar" >
-        <i onClick={props.action} className="fa fa-bars" style={{color:'white'}} ></i>
-        <Logo height="80%" />
-        <nav className="DesktopOnly">
-            <NavigationItems/>
+const toolbar = ( props ) => (
+    <header className={"Toolbar"}>
+        <DrawerToggle clicked={props.action} />
+        <div className={"Logo"}>
+            <Logo />
+        </div>
+        <nav className={"DesktopOnly"}>
+            <NavigationItems />
         </nav>
     </header>
 );
