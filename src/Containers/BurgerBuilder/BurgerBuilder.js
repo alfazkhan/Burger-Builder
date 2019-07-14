@@ -4,7 +4,6 @@ import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
 import Modal from '../../Components/UI/Modal/Modal';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrdarSummary';
-import axios from '../../axios-order';
 import Loading from '../../Components/UI/Loading/Loading';
 
 const INGRIDIENT_PRICE = {
@@ -87,21 +86,22 @@ class BurgerBuilder extends Component{
     }
 
     continuePurchase = () => {
-        const order = {
-            
-                ingredients : this.state.ingredients,
-                price : this.state.price,
-                user: {
-                    name:"Alfaaz",
-                    phone:"123456789"
-                },
-                delivery:"Fastest"
-        }
-        this.setState({processing:true});
-        axios.post('/orders.json',order)
-        .then(response=> this.closeModal())
-        .catch(error=> this.closeModal());
+        
 
+        const encodeParams=[]
+        for( let i in this.state.ingredients)
+        {
+            encodeParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]) );
+        }
+        encodeParams.push(encodeURIComponent('price') + '=' + encodeURIComponent(this.state.price));
+        var CryptoJS = require("crypto-js");
+        const queryString = CryptoJS.AES.encrypt(encodeParams.join('&'), "bulla");
+        //console.log(queryString);
+        //console.log(CryptoJS.AES.decrypt(queryString, "bulla").toString(CryptoJS.enc.Utf8));
+        this.props.history.push({
+            pathname: '/checkout',
+            search : '?'+queryString
+        });
         
     }
 
@@ -118,7 +118,6 @@ render(){
     }
 
     let modalElement = <OrderSummary ingredients={this.state.ingredients} close={this.closeModal} continue={this.continuePurchase} price={this.state.price} />;
-    
     
     return(
 

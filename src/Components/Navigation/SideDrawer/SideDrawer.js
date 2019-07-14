@@ -16,11 +16,11 @@ const sideDrawer = ( props ) => {
 
     return (
         <Auxi>
-            <Backdrop show={props.open} clicked={props.closed}/>
+            <Backdrop show={props.open} clicked={props.closed}  />
             <div className={attachedClasses.join(' ')}>
-                <i className="fa fa-times" onClick={props.closed}></i>
+                <i className="fa fa-times" onClick={props.closed} style={{fontSize: 30}} ></i>
                 <div className="Logo">
-                    <Logo />
+                    <Logo height="50px" />
                 </div>
                 <nav>
                     <NavigationItems />
